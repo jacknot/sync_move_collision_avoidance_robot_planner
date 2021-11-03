@@ -1,3 +1,4 @@
+# Synchronous Movements Manipulation and Collision Avoidance Planning in a Dual-Robot Environment
 ## Content
 The repository contains a set of packages and resources for the ROS simulation of an array of two robotic arms.
 
