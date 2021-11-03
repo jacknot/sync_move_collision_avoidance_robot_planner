@@ -1,0 +1,74 @@
+# Publish all joint states ----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Right -----------------------------------------------------
+right_arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - rright_shoulder_pan_joint
+    - rright_shoulder_lift_joint
+    - rright_elbow_joint
+    - rright_wrist_1_joint
+    - rright_wrist_2_joint
+    - rright_wrist_3_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    rright_shoulder_pan_joint: { trajectory: 0.1, goal: 0.1 }
+    rright_shoulder_lift_joint: { trajectory: 0.1, goal: 0.1 }
+    rright_elbow_joint: { trajectory: 0.1, goal: 0.1 }
+    rright_wrist_1_joint: { trajectory: 0.1, goal: 0.1 }
+    rright_wrist_2_joint: { trajectory: 0.1, goal: 0.1 }
+    rright_wrist_3_joint: { trajectory: 0.1, goal: 0.1 }
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 25
+  action_monitor_rate: 10
+  pid: { p: 100.0, i: 0.01, d: 10.0 }
+
+right_joints_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - rright_shoulder_pan_joint
+    - rright_shoulder_lift_joint
+    - rright_elbow_joint
+    - rright_wrist_1_joint
+    - rright_wrist_2_joint
+    - rright_wrist_3_joint
+  pid: { p: 100.0, i: 0.01, d: 10.0 }
+
+# Left -----------------------------------------------------
+left_arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - rleft_shoulder_pan_joint
+    - rleft_shoulder_lift_joint
+    - rleft_elbow_joint
+    - rleft_wrist_1_joint
+    - rleft_wrist_2_joint
+    - rleft_wrist_3_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    rleft_shoulder_pan_joint: { trajectory: 0.1, goal: 0.1 }
+    rleft_shoulder_lift_joint: { trajectory: 0.1, goal: 0.1 }
+    rleft_elbow_joint: { trajectory: 0.1, goal: 0.1 }
+    rleft_wrist_1_joint: { trajectory: 0.1, goal: 0.1 }
+    rleft_wrist_2_joint: { trajectory: 0.1, goal: 0.1 }
+    rleft_wrist_3_joint: { trajectory: 0.1, goal: 0.1 }
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 25
+  action_monitor_rate: 10
+  pid: { p: 100.0, i: 0.01, d: 10.0 }
+
+left_joints_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - rleft_shoulder_pan_joint
+    - rleft_shoulder_lift_joint
+    - rleft_elbow_joint
+    - rleft_wrist_1_joint
+    - rleft_wrist_2_joint
+    - rleft_wrist_3_joint
+  pid: { p: 100.0, i: 0.01, d: 10.0 }

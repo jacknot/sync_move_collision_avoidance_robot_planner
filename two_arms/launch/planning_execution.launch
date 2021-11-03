@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="namespace_value" default="two_arms" />
+	<group ns="$(arg namespace_value)">
+
+ 		<include file="$(find two_arms_moveit)/launch/planning_context.launch">
+			<arg name="load_robot_description" value="true"/>
+		</include>
+
+		<include file="$(find two_arms_moveit)/launch/move_group.launch">
+			<arg name="load_planning_context" value="false"/>
+		        <arg name="publish_monitored_planning_scene" value="true"/>
+		</include>
+
+		<rosparam command="load" file="$(find two_arms)/controller/joint_names.yaml" />
+	
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+		    <param name="use_gui" value="false"/>
+		    <rosparam param="source_list">[~joint_states]</rosparam>
+		</node>
+
+		<include file="$(find two_arms_moveit)/launch/moveit_rviz.launch">
+			<arg name="config" value="true"/>
+		</include>
+
+	</group>
+</launch>

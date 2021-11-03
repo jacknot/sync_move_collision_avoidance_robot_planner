@@ -1,0 +1,20 @@
+Bidirectional RRT,0,True,110.381973
+Bidirectional RRT,1,True,104.122203
+Bidirectional RRT,2,True,94.609805
+Bidirectional RRT,3,True,79.743316
+Bidirectional RRT,4,True,89.347682
+RRT,0,True,18.099794
+RRT,1,True,77.986569
+RRT,2,True,97.822582
+RRT,3,True,46.811763
+RRT,4,True,17.875140
+RRT*,0,True,23.019780
+RRT*,1,True,483.969098
+RRT*,2,True,24.821468
+RRT*,3,True,94.412090
+RRT*,4,True,22.179410
+Bidirectional RRT*,0,True,88.226955
+Bidirectional RRT*,1,True,181.037896
+Bidirectional RRT*,2,True,194.990930
+Bidirectional RRT*,3,True,253.880300
+Bidirectional RRT*,4,True,140.102405

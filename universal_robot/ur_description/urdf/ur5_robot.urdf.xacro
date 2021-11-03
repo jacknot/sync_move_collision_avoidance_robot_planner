@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro"
+       name="ur5" >
+
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:ur5_robot prefix="" joint_limited="false"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+  />
+
+  <link name="world" />
+  <link name="ground_plane_box">
+	  <visual>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+	 	  <geometry>
+		    <box size="1.8 1.8 0.1"/> 
+		  </geometry>
+		  <material name="Grey">
+		    <color rgba="0.7 0.7 0.7 1.0"/>
+		  </material>
+	  </visual>
+	  <collision>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <geometry>
+		    <box size="1.8 1.8 0.1"/> 
+		  </geometry>
+	  </collision>
+  </link>
+
+  <!--Connect the arm to the world-->
+  <joint name="world2arm_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+  <!--Connect ground to the world-->
+	<joint name="world2groundBox" type="fixed">
+	  <parent link="world" />
+	  <child link="ground_plane_box" />
+	  <origin xyz="0 0 -0.06" rpy="0 0 0" />
+	</joint>
+</robot>

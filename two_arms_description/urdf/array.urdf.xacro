@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="arm_pair">
+    <!--Gazebo stuff-->
+    <xacro:include filename="$(find two_arms_description)/urdf/common.gazebo.urdf.xacro" />
+    <xacro:gazebo_plugin_init gazebo_ctrl_namespace="two_arms" />
+
+    <!--Macros-->
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+   
+    <link name="world">
+    </link>
+    <link name="array_box">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.0125" />
+            <mass value="1000.0" />
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <geometry>
+                <box size="0.7 0.25 0.025" />
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.7 0.7 0.7 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <geometry>
+                <box size="0.7 0.25 0.025" />
+            </geometry>
+        </collision>
+    </link>
+
+    <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+    <xacro:ur5_robot prefix="rright_" joint_limited="true"
+        shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+        shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+        elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+        wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+        wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+        wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+        transmission_hw_interface="$(arg transmission_hw_interface)"
+    />
+    <xacro:ur5_robot prefix="rleft_" joint_limited="true"
+        shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+        shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+        elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+        wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+        wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+        wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+        transmission_hw_interface="$(arg transmission_hw_interface)"
+    />
+
+    <joint name="world2array" type="fixed">
+        <child link="array_box" />
+        <parent link="world" />
+        <origin xyz="0 0 0" rpy="0 0 0.0" />
+    </joint>
+    <joint name="array2rright" type="fixed">
+        <child link="rright_base_link" />
+        <parent link="array_box" />
+        <origin xyz="0.25 0 0.025" rpy="0 0 0" />
+    </joint>
+    <joint name="array2rleft" type="fixed">
+        <child link="rleft_base_link" />
+        <parent link="array_box" />
+        <origin xyz="-0.25 0 0.025" rpy="0 0 0" />
+    </joint>
+
+</robot>

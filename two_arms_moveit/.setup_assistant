@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: two_arms_description
+    relative_path: urdf/array.urdf.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/arm_pair.srdf
+  CONFIG:
+    author_name: Mora Salvalai
+    author_email: j.mora001@studenti.unibs.it
+    generated_timestamp: 1631282135

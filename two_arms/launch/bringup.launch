@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="namespace_value" default="two_arms" />
+
+    <!--gazebo + controllers-->
+    <include file="$(find two_arms)/launch/gazebo.launch">
+        <arg name="namespace_value" value="$(arg namespace_value)" />
+    </include>
+
+    <!--moveit + controllers-->
+    <include file="$(find two_arms)/launch/planning_execution.launch">
+        <arg name="namespace_value" value="$(arg namespace_value)" />
+    </include>
+    
+    <!--python node 
+    <include file="$(find two_arms)/launch/py_node.launch">
+        <arg name="namespace_value" value="$(arg namespace_value)" />
+    </include>
+    -->
+</launch>

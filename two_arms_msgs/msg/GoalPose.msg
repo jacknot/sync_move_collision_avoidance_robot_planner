@@ -1,0 +1,3 @@
+geometry_msgs/PoseStamped pose
+string assign_to
+uint8 priority

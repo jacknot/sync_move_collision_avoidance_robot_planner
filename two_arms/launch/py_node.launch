@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="package" default="two_arms" />
+    <arg name="namespace_value" default="two_arms" />
+    <arg name="load_desc" default="false" />
+    <arg name="script" default="main.py" />
+
+    <arg name="load_moveit" default="false" />
+    <include if="$(arg load_desc)" file="$(find two_arms)/launch/planning_execution.launch">
+        <arg name="namespace_value" value="$(arg namespace_value)" />
+    </include>
+    
+    <!--group ns="$(arg namespace_value)"-->
+        <include if="$(arg load_desc)" file="$(find two_arms_description)/launch/upload.launch" />
+        <node pkg="$(arg package)" name="py_node" type="$(arg script)" output="screen" args="$(arg namespace_value)" cwd="node" />
+    <!--/group-->
+    
+</launch>

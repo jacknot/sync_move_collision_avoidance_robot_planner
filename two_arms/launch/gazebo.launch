@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="namespace_value" default="two_arms" />
+    <arg name="robot_name" default="array2" />
+    <arg name="init_pose" default="-x 0 -y 0 -z 0" />
+    <param name="/use_sim_time" value="true" />
+    <!--<arg name= "limited" default= "false"/>-->
+    <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+    <!--<arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />-->
+    <arg name="gui" default="true" doc="Starts gazebo gui" />
+
+    <include file="$(find two_arms)/launch/urdf_spawn.launch">
+        <arg name="paused" value="$(arg paused)" />
+        <arg name="gazebo_gui" value="$(arg gui)" />
+        <arg name="robot_name" value="$(arg robot_name)" />
+        <arg name="init_pose" value="$(arg init_pose)" />
+    </include>
+
+    <!--http://gazebosim.org/tutorials/?tut=ros_control-->
+    <group ns="$(arg namespace_value)">
+        <rosparam file="$(find two_arms)/controller/gazebo_controllers.yaml" command="load" />
+
+        <!--node name="controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" 
+            output="screen" args="spawn /two_arms/joint_state_controller /two_arms/right_arm_controller /two_arms/left_arm_controller"/ -->
+        <node name="ctrl_spawner" pkg="controller_manager" type="spawner" 
+            args="joint_state_controller right_arm_controller left_arm_controller" />
+
+        <!-- load other controllers -->
+        <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="load right_joints_group_position_controller left_joints_group_position_controller" />
+
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+    </group>
+
+</launch>
